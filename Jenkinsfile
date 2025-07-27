@@ -46,12 +46,7 @@ pipeline{
             steps {
                 script {
                     bat 'kubectl version'
-                    def status = bat(script: 'minikube status | findstr "Running"', returnStdout: true).trim()
-                    if (!status) {
-                        error "Minikube is not running. Please start it with 'minikube start'"
-                    } else {
-                        echo "✅ Minikube is running"
-                    }
+                    bat 'minikube status'
                 }
             }
         }
