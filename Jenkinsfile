@@ -7,7 +7,7 @@ pipeline{
         DEPLOYMENT_NAME = 'my-app-deployment'
         HTTP_PROXY = 'http://proxy.example.com:8080'
         HTTPS_PROXY = 'http://proxy.example.com:8080'
-        NO_PROXY = 'localhost,127.0.0.1,docker.io'
+        NO_PROXY='localhost,127.0.0.1,192.168.49.2,10.96.0.0/12,docker.io'
         KUBECONFIG = credentials('kubeconfig')
     }
     stages {
