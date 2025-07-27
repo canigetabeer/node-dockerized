@@ -4,7 +4,7 @@ pipeline{
        nodejs 'node18'
     }
     environment {
-        
+        DEPLOYMENT_NAME = 'my-app-deployment'
         HTTP_PROXY = 'http://proxy.example.com:8080'
         HTTPS_PROXY = 'http://proxy.example.com:8080'
         NO_PROXY = 'localhost,127.0.0.1,docker.io'
@@ -40,6 +40,30 @@ pipeline{
                 bat 'docker logout'
                }
             }
-        }            
+        } 
+        stage('Check Minikube Status') {
+            steps {
+                script {
+                    bat 'kubectl --version'
+                    def status = bat(script: 'minikube status | findstr "Running"', returnStdout: true).trim()
+                    if (!status) {
+                        error "Minikube is not running. Please start it with 'minikube start'"
+                    } else {
+                        echo "✅ Minikube is running"
+                    }
+                }
+            }
+        }
+        stage("deployment"){
+            steps{
+                bat 'kubectl create deployment $DEPLOYMENT_NAME --image=abhiattri/my-node-pipe:1.0'
+                bat 'kubectl expose deployment $DEPLOYMENT_NAME --type=LoadBalance'
+            }
+        }
+        stage("verify pods running"){
+            steps{
+                bat 'kubectl get pods'
+            }
+        }
     }
 }
