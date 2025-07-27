@@ -32,7 +32,7 @@ pipeline{
                 bat 'docker build -t my-node-pipe:1.0 .'
             }
         }
-        stage("docker push image"){
+       /* stage("docker push image"){
             steps{
                 withCredentials([usernamePassword(credentialsId: 'docker_cred' , passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]){
                 bat ' echo %DOCKERHUB_PASSWORD% | docker login -u %DOCKERHUB_USERNAME% --password-stdin'
@@ -41,7 +41,7 @@ pipeline{
                 bat 'docker logout'
                }
             }
-        } 
+        } */
         stage('Check Minikube Status') {
             steps {
                 script {
