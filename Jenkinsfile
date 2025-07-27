@@ -44,7 +44,7 @@ pipeline{
         stage('Check Minikube Status') {
             steps {
                 script {
-                    bat 'kubectl --version'
+                    bat 'kubectl version'
                     def status = bat(script: 'minikube status | findstr "Running"', returnStdout: true).trim()
                     if (!status) {
                         error "Minikube is not running. Please start it with 'minikube start'"
