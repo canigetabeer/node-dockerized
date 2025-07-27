@@ -8,7 +8,8 @@ pipeline{
         }
         stage("test"){
             steps{
-               bat 'npm install'
+               bat 'npm -v'
+               bat 'node -v'
             }
         }
         stage("build"){
