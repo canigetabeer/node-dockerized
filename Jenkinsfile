@@ -8,6 +8,7 @@ pipeline{
         HTTP_PROXY = 'http://proxy.example.com:8080'
         HTTPS_PROXY = 'http://proxy.example.com:8080'
         NO_PROXY = 'localhost,127.0.0.1,docker.io'
+        KUBECONFIG = credentials('kubeconfig')
     }
     stages {
         stage("checkout"){
@@ -56,13 +57,13 @@ pipeline{
         }
         stage("deployment"){
             steps{
-                bat 'kubectl create deployment $DEPLOYMENT_NAME --image=abhiattri/my-node-pipe:1.0'
-                bat 'kubectl expose deployment $DEPLOYMENT_NAME --type=LoadBalance'
+                bat 'kubectl create deployment $DEPLOYMENT_NAME --image=abhiattri/my-node-pipe:1.0 --kubeconfig=$KUBECONFIG'
+                bat 'kubectl expose deployment $DEPLOYMENT_NAME --type=LoadBalance --kubeconfig=$KUBECONFIG'
             }
         }
         stage("verify pods running"){
             steps{
-                bat 'kubectl get pods'
+                bat 'kubectl get pods --kubeconfig=$KUBECONFIG'
             }
         }
     }
