@@ -46,6 +46,7 @@ pipeline{
             steps {
                 script {
                     bat 'kubectl version'
+                    bat 'minikube start'
                     bat 'minikube status'
                 }
             }
