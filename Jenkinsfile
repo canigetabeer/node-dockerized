@@ -3,6 +3,12 @@ pipeline{
     tools {
        nodejs 'node18'
     }
+    environment {
+        
+        HTTP_PROXY = 'http://proxy.example.com:8080'
+        HTTPS_PROXY = 'http://proxy.example.com:8080'
+        NO_PROXY = 'localhost,127.0.0.1,docker.io'
+    }
     stages {
         stage("checkout"){
             steps{
