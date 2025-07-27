@@ -18,7 +18,6 @@ pipeline{
         stage("build"){
             steps{
                bat 'echo "running build script" '
-               bat 'node index.js'
             }
         }
         stage("build Image"){
