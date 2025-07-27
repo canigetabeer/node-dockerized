@@ -8,12 +8,12 @@ pipeline{
         }
         stage("test"){
             steps{
-               sh 'sudo npm install'
+               bat 'sudo npm install'
             }
         }
         stage("build"){
             steps{
-               sh 'npm run start'
+               bat 'npm run start'
             }
         }
     }
